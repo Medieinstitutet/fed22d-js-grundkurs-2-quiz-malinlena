@@ -1,8 +1,7 @@
-@use "utils/a11y"; // Om det inte funkar, byt @use mot @import
-@use "vendor/reset";
+@use 'utils/a11y'; // Om det inte funkar, byt @use mot @import
+@use 'vendor/reset';
 
 :root {
-  // TODO: Går bra att radera kod även här!
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: rem(16px);
   line-height: 24px;
@@ -17,9 +16,42 @@
   text-size-adjust: 100%;
 }
 
-// TODO: Radera mig! Jag är bara ett exempel.
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+}
+
 main {
   padding: 20px;
+}
+
+#question-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin-block: 20px;
+}
+
+#startGameBtn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background: #0f2a3f;
+  }
+}
+
+.hidden {
+  display: none;
 }
 
 .app {

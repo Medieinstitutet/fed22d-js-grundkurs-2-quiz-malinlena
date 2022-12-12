@@ -10,7 +10,6 @@ import initialQuestions from './questionArray';
 
 /*
  * definiera frågor och svarsalternativ och rätta svar
- * ge funktionalitet till knappen för nästa fråga
  * ge funktionalitet till spela-igen-knappen
  * skapa en funktion som slumpar fram frågor och svarsalternativ
  * skapa en funktion som kollar om svaret är rätt
@@ -106,5 +105,5 @@ function gameOver() {
   document.querySelector('#gameOver').style.display = 'block';
   document.querySelector('#questionContainer').classList.add('hidden');
   document.querySelector('#pointsContainer').innerHTML = `Du fick ${points} poäng!`;
-  // document.querySelector('#gameOver').classList.toggle('hidden');
+  document.querySelector('#gameOver').classList.toggle('hidden');
 }
