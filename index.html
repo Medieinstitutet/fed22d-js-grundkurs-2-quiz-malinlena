@@ -1,24 +1,50 @@
 <!DOCTYPE html>
-<html lang="en"> <!-- TODO: glöm ej att byta språk här -->
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/ico" href="/js-template/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projekt</title>
-    <script type="module" crossorigin src="/js-template/assets/index.288365a0.js"></script>
-    <link rel="stylesheet" href="/js-template/assets/index.09951560.css">
-  </head>
-  <body>
-    <main>
-      <div class="app" id="app"></div> <!-- TODO: går bra att radera -->
-      <!-- TODO: skriv din kod här, innan script-taggen -->
-    </main>
+<html lang="sv">
 
-    <!-- TODO
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/ico" href="/fed22d-js-grundkurs-2-quiz-malinlena/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projekt</title>
+  <script type="module" crossorigin src="/fed22d-js-grundkurs-2-quiz-malinlena/assets/index.450cb55f.js"></script>
+  <link rel="stylesheet" href="/fed22d-js-grundkurs-2-quiz-malinlena/assets/index.694ec751.css">
+</head>
+
+<body>
+  <main>
+
+    <h1>Quiz</h1>
+    <div id="gameDescription"></div>
+
+    <div id="playerDetails">
+      <label>
+        Ditt namn: <input type="text" id="playerNameInput" value="Malin">
+      </label>
+      <button id="startGameBtn">Starta spelet</button>
+    </div>
+
+    <div id="questionContainer">
+      <div id="questionText"></div>
+      <button id="answer1"></button>
+      <button id="answer2"></button>
+      <button id="answer3"></button>
+    </div>
+
+    <div id="gameOver" class="hidden">
+      Spelet är slut!
+      <p id="pointsContainer"></p>
+      <p>
+        <button id="restartGameBtn">Spela igen</button>
+      </p>
+    </div>
+  </main>
+
+  <!-- TODO
     - Validera HTML (kopiera den renderade HTML-koden): https://validator.w3.org/#validate_by_input
     - Kontrollera tillgänglighet: https://www.a11yproject.com/checklist/ & Chrome Lighthouse/Firefox Accessibility Tools
     - Validera genererade CSS: https://jigsaw.w3.org/css-validator/#validate_by_input
     -->
-    
-  </body>
+  
+</body>
+
 </html>
