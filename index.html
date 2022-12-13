@@ -12,21 +12,18 @@
   <main>
 
     <h1>Musikquiz</h1>
-    <div id="question-container">
-      <div id="gameDescription"></div>
+    <div id="quiz-container">
+      <div id="gameDescription">Välkommen till musikquizet!</div>
 
-      <div id="playerDetails">
-        <label>
-          Ditt namn: <input type="text" id="playerNameInput" value="">
-        </label>
-        <button id="startGameBtn">Starta quizet</button>
+      <div id="player-details">
+        <label>Ditt namn:<br>
+          <input type="text" id="playerNameInput" value=""></label>
+        <button id="start-game-button">Starta quizet</button>
       </div>
 
-      <div id="questionContainer">
-        <div id="questionText"></div>
-        <button id="answer1"></button>
-        <button id="answer2"></button>
-        <button id="answer3"></button>
+      <div id="questionContainer" class="hidden">
+        <div id="question-text"></div>
+        <div id="answer-container"></div>
       </div>
     </div>
 
@@ -34,7 +31,7 @@
       Spelet är slut!
       <p id="pointsContainer"></p>
       <p>
-        <button id="restartGameBtn">Spela igen</button>
+        <button id="restart-game-button">Spela igen</button>
       </p>
     </div>
   </main>

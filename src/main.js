@@ -1,23 +1,15 @@
 import './style/style.scss';
 
-// All kod härifrån och ner är bara ett exempel för att komma igång
+import { shuffle, showElement, hideElement } from './utils';
 
-// I denna utils-fil har vi lagrat funktioner som ofta används, t.ex. en "blanda array"-funktion
-import { shuffle } from './utils';
-
-// I denna fil har vi lagrat vår "data", i detta exempel en ofullständig kortlek
 import initialQuestions from './questionArray';
 
 /*
- * definiera frågor och svarsalternativ och rätta svar
- * ge funktionalitet till spela-igen-knappen
  * skapa en funktion som slumpar fram frågor och svarsalternativ
- * skapa en funktion som kollar om svaret är rätt
  * skapa en funktion som visar om svaret är rätt eller fel
  * skapa en funktion som visar poäng
  * skapa en funktion som visar hur många frågor som är kvar
  * skapa en timer-funktion
- * skapa en funktion som räknar poängen
  * skapa highscore-funktion
  * skapa en funktion som gör det möjligt att flera svarsalternativ kan vara rätt
  * skapa high-score med 10 platser lagrat i local storage
@@ -26,84 +18,95 @@ import initialQuestions from './questionArray';
  * skapa en knapp som visar alla svar med rätt och fel
  */
 
-const gameDescText = 'Välkommen till musikquizet!';
-const gameDescription = document.querySelector('#gameDescription');
+// Variabler
 
-gameDescription.innerHTML = gameDescText;
-
-document.querySelector('#startGameBtn').addEventListener('click', startGame);
-
-let playerName = '';
-
-function startGame() {
-  console.log('startGame');
-  // Spara spelarens nick
-  playerName = document.querySelector('#playerNameInput').value;
-
-  // Dölj HTML-elementen
-  gameDescription.style.display = 'none';
-  document.querySelector('#playerDetails').style.display = 'none';
-
-  nextQuestion();
-}
-
-const questionTextDiv = document.querySelector('#questionText');
-const answer1Btn = document.querySelector('#answer1');
-const answer2Btn = document.querySelector('#answer2');
-const answer3Btn = document.querySelector('#answer3');
-
-answer1Btn.addEventListener('click', checkAnswer);
-answer2Btn.addEventListener('click', checkAnswer);
-answer3Btn.addEventListener('click', checkAnswer);
+const gameDescription = document.getElementById('gameDescription');
+const questionTextDiv = document.getElementById('question-text');
+const startGameButton = document.getElementById('start-game-button');
+const restartGameButton = document.getElementById('restart-game-button');
+const gameOverText = document.getElementById('gameOver');
 
 let currentQuestion = 0;
 let points = 0;
 let questions = shuffle(initialQuestions);
+let playerName = '';
 
-function checkAnswer(e) {
-  const userAnswer = e.currentTarget.innerHTML; // vilket svarsalternativ
-  // vilken som är den aktuella frågan
-  //varför -1: - 1 för att vi i nextQuestion har redan "gått vidare" till nästa fråga
-  // så vi vill ha rätt svar för föregående fråga
+// Eventlyssnare
+
+startGameButton.addEventListener('click', startGame);
+restartGameButton.addEventListener('click', restartGame);
+
+// Funktioner
+
+function startGame() {
+  const playerNameInput = document.getElementById('playerNameInput');
+  const playerDetails = document.getElementById('player-details');
+  const questionContainer = document.getElementById('questionContainer');
+  // Spara spelarens namn
+  playerName = playerNameInput.value;
+  // Dölj HTML-elementen
+  hideElement(gameDescription);
+  hideElement(playerDetails);
+  // Visa HTML-elementen
+  showElement(questionContainer);
+
+  nextQuestion();
+}
+
+function checkAnswer(event) {
+  // vilket svarsalternativ användaren tryckt på
+  const userAnswer = event.currentTarget.innerHTML;
+  // vilket svarsalternativ som är rätt
   const correctAnswer = questions[currentQuestion - 1].correctAnswer;
+
   if (userAnswer === correctAnswer) {
-    // jämföra frågans rätt svar med tryckt knapp
     // ge ett poäng!
     points++;
   } else {
     // ge minus
+    points--;
   }
   nextQuestion();
 }
 
 function nextQuestion() {
   if (currentQuestion >= questions.length) {
-    // > =
     gameOver();
     return;
   }
 
-  questionTextDiv.innerHTML = questions[currentQuestion].questionText;
-  answer1Btn.innerHTML = questions[currentQuestion].answerOptions[0];
-  answer2Btn.innerHTML = questions[currentQuestion].answerOptions[1];
-  answer3Btn.innerHTML = questions[currentQuestion].answerOptions[2];
+  const answerContainer = document.getElementById('answer-container');
+  const question = questions[currentQuestion];
+  const answers = shuffle(question.answerOptions);
 
-  currentQuestion++; // += 1, currentQuestion = currentQuestion + 1;
+  questionTextDiv.innerHTML = questions[currentQuestion].questionText;
+  answerContainer.innerHTML = '';
+
+  // Använder anonyma funktioner här pga finns endast här.
+  answers.forEach(answer => {
+    answerContainer.innerHTML += `<button class="answer-button">${answer}</button>`;
+  });
+  const answerButtons = document.querySelectorAll('.answer-button');
+  answerButtons.forEach(button => {
+    button.addEventListener('click', checkAnswer);
+  });
+
+  currentQuestion++;
 }
 
-document.querySelector('#restartGameBtn').addEventListener('click', restartGame);
-
 function restartGame() {
-  document.querySelector('#gameOver').style.display = 'none';
-  document.querySelector('#questionContainer').classList.remove('hidden');
+  const questionContainer = document.getElementById('questionContainer');
+  hideElement(gameOverText);
+  showElement(questionContainer);
   currentQuestion = 0;
   points = 0;
   nextQuestion();
 }
 
 function gameOver() {
-  document.querySelector('#gameOver').style.display = 'block';
-  document.querySelector('#questionContainer').classList.add('hidden');
-  document.querySelector('#pointsContainer').innerHTML = `Du fick ${points} poäng!`;
-  document.querySelector('#gameOver').classList.toggle('hidden');
+  const questionContainer = document.getElementById('questionContainer');
+  const pointsContainer = document.getElementById('pointsContainer');
+  pointsContainer.innerHTML = `Du fick ${points} poäng!`;
+  showElement(gameOverText);
+  hideElement(questionContainer);
 }
