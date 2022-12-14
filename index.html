@@ -6,8 +6,8 @@
   <link rel="icon" type="image/ico" href="/fed22d-js-grundkurs-2-quiz-malinlena/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Musikquiz</title>
-  <script type="module" crossorigin src="/fed22d-js-grundkurs-2-quiz-malinlena/assets/index.e983c466.js"></script>
-  <link rel="stylesheet" href="/fed22d-js-grundkurs-2-quiz-malinlena/assets/index.9a65d80c.css">
+  <script type="module" crossorigin src="/fed22d-js-grundkurs-2-quiz-malinlena/assets/index.20228d32.js"></script>
+  <link rel="stylesheet" href="/fed22d-js-grundkurs-2-quiz-malinlena/assets/index.5b397b9d.css">
 </head>
 
 <body>
@@ -15,7 +15,7 @@
 
     <h1>Musikquiz</h1>
     <div id="quiz-container">
-      <div id="gameDescription">Välkommen till musikquizet!</div>
+      <div id="game-description">Välkommen till musikquizet!</div>
 
       <div id="player-details">
         <label>Ditt namn:<br>
@@ -23,19 +23,21 @@
         <button id="start-game-button">Starta quizet</button>
       </div>
 
-      <div id="questionContainer" class="hidden">
+      <div id="question-container" class="hidden">
         <div id="question-text"></div>
         <div id="answer-container"></div>
+        <button id="next-question-button">Nästa fråga</button>
       </div>
     </div>
 
-    <div id="gameOver" class="hidden">
+    <div id="game-over" class="hidden">
       Spelet är slut!
       <p id="pointsContainer"></p>
       <p>
         <button id="restart-game-button">Spela igen</button>
       </p>
     </div>
+    <button id="highscore-button" class="hidden">Highscore</button>
   </main>
   
 </body>
