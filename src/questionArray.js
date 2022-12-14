@@ -33,7 +33,7 @@ const questions = [
     answerOptions: ['Melon', 'Citron', 'Päron'],
     correctAnswer: 'Päron',
     category: 'Lätt',
-    image: '/public/images/fruits-music.jpg',
+    image: '/public/images/fruits-music.png',
   },
   {
     questionText:
@@ -43,13 +43,13 @@ const questions = [
     category: 'Medel',
     image: '/public/images/norway-music.jpg',
   },
-  // {
-  //   questionText: '?',
-  //   answerOptions: ['', '', ''],
-  //   correctAnswer: '',
-  //   category: '',
-  //   image: '',
-  // },
+  {
+    questionText: 'Vilket artistnamn är Marshall Bruce Mathers III mer känd som?',
+    answerOptions: ['Dr. Dre', 'Eminem', '50 Cent'],
+    correctAnswer: 'Eminem',
+    category: 'Medel',
+    image: '/public/images/marshall-music.jpg',
+  },
   // {
   //   questionText: '?',
   //   answerOptions: ['', '', ''],
