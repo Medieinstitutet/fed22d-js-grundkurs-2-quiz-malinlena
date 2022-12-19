@@ -50,13 +50,13 @@ const questions = [
     category: 'Medel',
     image: '/public/images/marshall-music.jpg',
   },
-  // {
-  //   questionText: '?',
-  //   answerOptions: ['', '', ''],
-  //   correctAnswer: '',
-  //   category: '',
-  //   image: '',
-  // },
+  {
+    questionText: 'Vad heter rapparen som har gjort låten "Gangstas Paradise"?',
+    answerOptions: ['Coolio', 'Eazy-E', '2Pac'],
+    correctAnswer: 'Coolio',
+    category: 'Medel',
+    image: '/public/images/hip-hop-music.jpg',
+  },
   // {
   //   questionText: '?',
   //   answerOptions: ['', '', ''],
