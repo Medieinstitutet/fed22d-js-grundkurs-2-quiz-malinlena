@@ -17,8 +17,10 @@
 
       <div id="player-details">
         <label>Ditt namn:<br>
-          <input type="text" id="playerNameInput" value=""></label>
+          <input type="text" id="playerNameInput" value="">
+        </label>
         <button id="start-game-button">Starta quizet</button>
+        <button class="highscore-button">Highscore</button>
       </div>
 
       <div id="question-container" class="hidden">
@@ -34,8 +36,14 @@
       <p>
         <button id="restart-game-button">Spela igen</button>
       </p>
+      <button class="highscore-button">Highscore</button>
+
     </div>
-    <button id="highscore-button" class="hidden">Highscore</button>
+
+    <div id="highscore-container" class="hidden">
+      <h2>Highscore</h2>
+      <div id="highscore-list"></div>
+    </div>
   </main>
   <script type="module" src="/src/main.js"></script>
 </body>

@@ -6,9 +6,7 @@ import initialQuestions from './questionArray';
 
 /*
  * skapa en funktion som visar hur många frågor som är kvar
- * skapa highscore-funktion
  * skapa en funktion som gör det möjligt att flera svarsalternativ kan vara rätt
- * skapa high-score med 10 platser lagrat i local storage
  * skapa en maxtid med nedräkning
  * skapa en timer-funkton som ger olika poäng beroende på hur lång tid det tar att svara
  * skapa en knapp som visar alla svar med rätt och fel
@@ -22,7 +20,12 @@ const startGameButton = document.getElementById('start-game-button');
 const restartGameButton = document.getElementById('restart-game-button');
 const gameOverText = document.getElementById('game-over');
 const nextQuestionButton = document.getElementById('next-question-button');
-const highscoreButton = document.getElementById('highscore-button');
+const highscoreButtons = document.querySelectorAll('.highscore-button');
+const questionContainer = document.getElementById('question-container');
+const playerDetails = document.getElementById('player-details');
+const quizContainer = document.getElementById('quiz-container');
+const highscoreContainer = document.getElementById('highscore-container');
+const highscoreList = document.getElementById('highscore-list');
 
 let currentQuestion = 0;
 let points = 0;
@@ -37,14 +40,12 @@ let timerGameOver = null;
 startGameButton.addEventListener('click', startGame);
 restartGameButton.addEventListener('click', restartGame);
 nextQuestionButton.addEventListener('click', nextQuestion);
-highscoreButton.addEventListener('click', highscore);
+highscoreButtons.forEach(button => button.addEventListener('click', highscore));
 
 // Funktioner
 
 function startGame() {
   const playerNameInput = document.getElementById('playerNameInput');
-  const playerDetails = document.getElementById('player-details');
-  const questionContainer = document.getElementById('question-container');
   timerGameOver = setTimeout(gameOver, 5 * 60 * 1000);
   // Spara spelarens namn
   playerName = playerNameInput.value;
@@ -116,7 +117,7 @@ function restartGame() {
   showElement(questionContainer);
   currentQuestion = 0;
   points = 0;
-  displayQuestion();
+  startGame();
 }
 
 function gameOver() {
@@ -124,11 +125,43 @@ function gameOver() {
   const pointsContainer = document.getElementById('pointsContainer');
   clearTimeout(timerGameOver);
   pointsContainer.innerHTML = `Du fick ${points} poäng!`;
+
+  const highscore = JSON.parse(localStorage.getItem('highscore')) ?? [];
+  console.log('highscore', highscore);
+  const scores = highscore.map(record => record.score);
+  const lowestScore = Math.min(...scores);
+
+  if (points > lowestScore || highscore.length < 10) {
+    const newHighscore = [...highscore, { name: playerName, score: points }].sort((a, b) => b.score - a.score);
+
+    if (newHighscore.length > 10) {
+      newHighscore.pop();
+    }
+
+    localStorage.setItem('highscore', JSON.stringify(newHighscore));
+  }
+
   showElement(gameOverText);
   hideElement(questionContainer);
-  showElement(highscoreButton);
+}
+
+function hideEverything() {
+  hideElement(gameOverText);
+  hideElement(quizContainer);
 }
 
 function highscore() {
-  // TODO - skapa highscore-funktion
+  hideEverything();
+  showElement(highscoreContainer);
+  const highscore = JSON.parse(localStorage.getItem('highscore')) ?? [];
+
+  highscoreList.innerHTML = highscore
+    .map(
+      (record, i) => `
+    <div>
+      ${i + 1}. ${record.name} ${record.score}
+    </div>
+  `
+    )
+    .join('');
 }
