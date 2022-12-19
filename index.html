@@ -6,46 +6,47 @@
   <link rel="icon" type="image/ico" href="/fed22d-js-grundkurs-2-quiz-malinlena/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Musikquiz</title>
-  <script type="module" crossorigin src="/fed22d-js-grundkurs-2-quiz-malinlena/assets/index.7004018a.js"></script>
-  <link rel="stylesheet" href="/fed22d-js-grundkurs-2-quiz-malinlena/assets/index.5b397b9d.css">
+  <script type="module" crossorigin src="/fed22d-js-grundkurs-2-quiz-malinlena/assets/index.497b0336.js"></script>
+  <link rel="stylesheet" href="/fed22d-js-grundkurs-2-quiz-malinlena/assets/index.46c8c9de.css">
 </head>
 
 <body>
   <main>
 
     <h1>Musikquiz</h1>
-    <div id="quiz-container">
+    <div class="quiz-container">
       <div id="game-description">Välkommen till musikquizet!</div>
 
-      <div id="player-details">
+      <div class="player-details">
         <label>Ditt namn:<br>
           <input type="text" id="playerNameInput" value="">
         </label>
-        <button id="start-game-button">Starta quizet</button>
+        <button class="start-game-button">Starta quizet</button>
         <button class="highscore-button">Highscore</button>
       </div>
 
-      <div id="question-container" class="hidden">
-        <div id="question-text"></div>
-        <div id="answer-container"></div>
-        <button id="next-question-button">Nästa fråga</button>
+      <div class="question-container hidden">
+        <div class="question-text"></div>
+        <div class="answer-container"></div>
+        <button class="next-question-button">Nästa fråga</button>
       </div>
     </div>
 
-    <div id="game-over" class="hidden">
+    <div class="game-over hidden">
       Spelet är slut!
       <p id="pointsContainer"></p>
       <p>
-        <button id="restart-game-button">Spela igen</button>
+        <button class="restart-game-button">Spela igen</button>
       </p>
       <button class="highscore-button">Highscore</button>
 
     </div>
 
-    <div id="highscore-container" class="hidden">
+    <div class="highscore-container hidden">
       <h2>Highscore</h2>
-      <div id="highscore-list"></div>
+      <div class="highscore-list"></div>
     </div>
+    <button class="back-button hidden">Tillbaka</button>
   </main>
   
 </body>
