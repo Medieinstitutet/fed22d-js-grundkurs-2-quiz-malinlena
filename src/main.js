@@ -15,17 +15,18 @@ import initialQuestions from './questionArray';
 // Variabler
 
 const gameDescription = document.getElementById('game-description');
-const questionTextDiv = document.getElementById('question-text');
-const startGameButton = document.getElementById('start-game-button');
-const restartGameButton = document.getElementById('restart-game-button');
-const gameOverText = document.getElementById('game-over');
-const nextQuestionButton = document.getElementById('next-question-button');
+const questionTextDiv = document.querySelector('.question-text');
+const startGameButton = document.querySelector('.start-game-button');
+const restartGameButton = document.querySelector('.restart-game-button');
+const gameOverText = document.querySelector('.game-over');
+const nextQuestionButton = document.querySelector('.next-question-button');
 const highscoreButtons = document.querySelectorAll('.highscore-button');
-const questionContainer = document.getElementById('question-container');
-const playerDetails = document.getElementById('player-details');
-const quizContainer = document.getElementById('quiz-container');
-const highscoreContainer = document.getElementById('highscore-container');
-const highscoreList = document.getElementById('highscore-list');
+const questionContainer = document.querySelector('.question-container');
+const playerDetails = document.querySelector('.player-details');
+const quizContainer = document.querySelector('.quiz-container');
+const highscoreContainer = document.querySelector('.highscore-container');
+const highscoreList = document.querySelector('.highscore-list');
+const backButton = document.querySelector('.back-button');
 
 let currentQuestion = 0;
 let points = 0;
@@ -41,32 +42,32 @@ startGameButton.addEventListener('click', startGame);
 restartGameButton.addEventListener('click', restartGame);
 nextQuestionButton.addEventListener('click', nextQuestion);
 highscoreButtons.forEach(button => button.addEventListener('click', highscore));
+backButton.addEventListener('click', showStartPage);
 
 // Funktioner
+
+function showStartPage() {
+  hideEverything();
+  showElement(quizContainer);
+}
 
 function startGame() {
   const playerNameInput = document.getElementById('playerNameInput');
   timerGameOver = setTimeout(gameOver, 5 * 60 * 1000);
-  // Spara spelarens namn
   playerName = playerNameInput.value;
-  // Dölj HTML-elementen
   hideElement(gameDescription);
   hideElement(playerDetails);
-  // Visa HTML-elementen
   showElement(questionContainer);
 
   displayQuestion();
 }
 
 function checkAnswer() {
-  // vilket svarsalternativ som är rätt
   const correctAnswer = questions[currentQuestion].correctAnswer;
 
   if (userAnswer === correctAnswer) {
-    // ge ett poäng!
     points++;
   } else {
-    // ge minus
     points--;
   }
 }
@@ -84,7 +85,7 @@ function displayQuestion() {
     return;
   }
 
-  const answerContainer = document.getElementById('answer-container');
+  const answerContainer = document.querySelector('.answer-container');
   const question = questions[currentQuestion];
   const answers = shuffle(question.answerOptions);
 
@@ -112,7 +113,6 @@ function nextQuestion() {
 }
 
 function restartGame() {
-  const questionContainer = document.getElementById('question-container');
   hideElement(gameOverText);
   showElement(questionContainer);
   currentQuestion = 0;
@@ -121,7 +121,6 @@ function restartGame() {
 }
 
 function gameOver() {
-  const questionContainer = document.getElementById('question-container');
   const pointsContainer = document.getElementById('pointsContainer');
   clearTimeout(timerGameOver);
   pointsContainer.innerHTML = `Du fick ${points} poäng!`;
@@ -148,6 +147,8 @@ function gameOver() {
 function hideEverything() {
   hideElement(gameOverText);
   hideElement(quizContainer);
+  hideElement(highscoreContainer);
+  hideElement(backButton);
 }
 
 function highscore() {
@@ -158,10 +159,11 @@ function highscore() {
   highscoreList.innerHTML = highscore
     .map(
       (record, i) => `
-    <div>
-      ${i + 1}. ${record.name} ${record.score}
+    <div class="highscore-record">
+      <span>${i + 1}. ${record.name}</span> <span>${record.score} p</span>
     </div>
   `
     )
     .join('');
+  showElement(backButton);
 }
