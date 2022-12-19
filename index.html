@@ -6,7 +6,7 @@
   <link rel="icon" type="image/ico" href="/fed22d-js-grundkurs-2-quiz-malinlena/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Musikquiz</title>
-  <script type="module" crossorigin src="/fed22d-js-grundkurs-2-quiz-malinlena/assets/index.20228d32.js"></script>
+  <script type="module" crossorigin src="/fed22d-js-grundkurs-2-quiz-malinlena/assets/index.7004018a.js"></script>
   <link rel="stylesheet" href="/fed22d-js-grundkurs-2-quiz-malinlena/assets/index.5b397b9d.css">
 </head>
 
@@ -19,8 +19,10 @@
 
       <div id="player-details">
         <label>Ditt namn:<br>
-          <input type="text" id="playerNameInput" value=""></label>
+          <input type="text" id="playerNameInput" value="">
+        </label>
         <button id="start-game-button">Starta quizet</button>
+        <button class="highscore-button">Highscore</button>
       </div>
 
       <div id="question-container" class="hidden">
@@ -36,8 +38,14 @@
       <p>
         <button id="restart-game-button">Spela igen</button>
       </p>
+      <button class="highscore-button">Highscore</button>
+
     </div>
-    <button id="highscore-button" class="hidden">Highscore</button>
+
+    <div id="highscore-container" class="hidden">
+      <h2>Highscore</h2>
+      <div id="highscore-list"></div>
+    </div>
   </main>
   
 </body>
