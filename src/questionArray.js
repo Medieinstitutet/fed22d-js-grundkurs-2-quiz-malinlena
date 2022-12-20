@@ -57,13 +57,13 @@ const questions = [
     category: 'Medel',
     image: '/public/images/hip-hop-music.jpg',
   },
-  // {
-  //   questionText: '?',
-  //   answerOptions: ['', '', ''],
-  //   correctAnswer: '',
-  //   category: '',
-  //   image: '',
-  // },
+  {
+    questionText: 'Vem av dessa kompositörer har skrivit "Für Elise"?',
+    answerOptions: ['Ludwig van Beethoven', 'Johann Sebastian Bach', 'Wolfgang Amadeus Mozart'],
+    correctAnswer: 'Ludwig van Beethoven',
+    category: 'Medel',
+    image: '/public/images/classical-music.jpg',
+  },
   // {
   //   questionText: '?',
   //   answerOptions: ['', '', ''],
