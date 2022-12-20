@@ -72,6 +72,7 @@ main {
   border: none;
   border-radius: 8px;
   color: #fff;
+  background-color: gray;
   font-size: 1.5rem;
   font-weight: 700;
   cursor: pointer;
@@ -87,8 +88,18 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 40px;
+  gap: 10px;
   margin-block: 20px;
+}
+
+.timer-gameover {
+  opacity: 0.5;
+  font-size: 2rem;
+  font-weight: 700;
+  border-radius: 8px;
+  position: fixed;
+  top: 0;
+  right: 10px;
 }
 
 .next-question-button {

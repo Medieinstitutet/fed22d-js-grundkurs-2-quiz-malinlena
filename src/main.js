@@ -7,7 +7,6 @@ import initialQuestions from './questionArray';
 /*
  * skapa en funktion som visar hur många frågor som är kvar
  * skapa en funktion som gör det möjligt att flera svarsalternativ kan vara rätt
- * skapa en maxtid med nedräkning
  * skapa en timer-funkton som ger olika poäng beroende på hur lång tid det tar att svara
  * skapa en knapp som visar alla svar med rätt och fel
  */
@@ -53,13 +52,31 @@ function showStartPage() {
 
 function startGame() {
   const playerNameInput = document.getElementById('playerNameInput');
-  timerGameOver = setTimeout(gameOver, 5 * 60 * 1000);
+  const fiveMinutes = 5 * 60 * 1000;
+  startCountDown(fiveMinutes);
+  timerGameOver = setTimeout(gameOver, fiveMinutes);
   playerName = playerNameInput.value;
   hideElement(gameDescription);
   hideElement(playerDetails);
   showElement(questionContainer);
 
   displayQuestion();
+}
+
+function startCountDown(milliseconds) {
+  let counter = milliseconds / 1000;
+  const gameTimer = document.querySelector('.timer-gameover');
+  gameTimer.innerHTML = Math.floor(counter / 60) + ':' + (counter % 60).toString().padStart(2, '0');
+  counter--;
+  const interval = setInterval(() => {
+    gameTimer.innerHTML = Math.floor(counter / 60) + ':' + (counter % 60).toString().padStart(2, '0');
+    counter--;
+    if (counter < 0) {
+      clearInterval(interval);
+    } else if (counter < 30) {
+      gameTimer.style.color = 'red';
+    }
+  }, 1000);
 }
 
 function checkAnswer() {
