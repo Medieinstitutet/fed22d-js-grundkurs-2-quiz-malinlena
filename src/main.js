@@ -6,7 +6,6 @@ import initialQuestions from './questionArray';
 
 /*
  * skapa en funktion som visar hur många frågor som är kvar
- * skapa en funktion som gör det möjligt att flera svarsalternativ kan vara rätt
  * skapa en timer-funkton som ger olika poäng beroende på hur lång tid det tar att svara
  * skapa en knapp som visar alla svar med rätt och fel
  */
@@ -81,16 +80,32 @@ function startCountDown(milliseconds) {
 
 function checkAnswer() {
   const correctAnswer = questions[currentQuestion].correctAnswer;
-
-  if (userAnswer === correctAnswer) {
-    points++;
+  console.log(userAnswer);
+  if (typeof correctAnswer === 'object') {
+    points +=
+      correctAnswer.every(item => userAnswer.includes(item)) && userAnswer.every(item => correctAnswer.includes(item))
+        ? 1
+        : -1;
   } else {
-    points--;
+    if (userAnswer === correctAnswer) {
+      points++;
+    } else {
+      points--;
+    }
   }
 }
 
 function setAnswer(event) {
-  userAnswer = event.currentTarget.nextSibling.textContent;
+  const correctAnswer = questions[currentQuestion].correctAnswer;
+  if (typeof correctAnswer === 'object') {
+    userAnswer = [];
+    const checkedAnswers = document.querySelectorAll('input:checked');
+    checkedAnswers.forEach(answer => {
+      userAnswer.push(answer.nextSibling.textContent);
+    });
+  } else {
+    userAnswer = event.currentTarget.nextSibling.textContent;
+  }
   if (timerNextQuestion === null) {
     timerNextQuestion = setTimeout(nextQuestion, 5000);
   }
@@ -105,16 +120,26 @@ function displayQuestion() {
   const answerContainer = document.querySelector('.answer-container');
   const question = questions[currentQuestion];
   const answers = shuffle(question.answerOptions);
+  const correctAnswer = questions[currentQuestion].correctAnswer;
 
   questionTextDiv.innerHTML = questions[currentQuestion].questionText;
   answerContainer.innerHTML = '';
+  console.log(correctAnswer);
 
   // Använder anonyma funktioner här pga finns endast här.
-  answers.forEach(answer => {
-    answerContainer.innerHTML += `<div class="button">
+  if (typeof correctAnswer === 'object') {
+    answers.forEach(answer => {
+      answerContainer.innerHTML += `<div class="button">
+      <input type="checkbox" name="answerButton" class="answer-button"><label>${answer}</label>
+      </div>`;
+    });
+  } else {
+    answers.forEach(answer => {
+      answerContainer.innerHTML += `<div class="button">
     <input type="radio" name="answerButton" class="answer-button"><label>${answer}</label>
     </div>`;
-  });
+    });
+  }
   const answerButtons = document.querySelectorAll('.answer-button');
   answerButtons.forEach(button => {
     button.addEventListener('change', setAnswer);
@@ -184,3 +209,5 @@ function highscore() {
     .join('');
   showElement(backButton);
 }
+
+// * skapa en funktion som gör det möjligt att flera svarsalternativ kan vara rätt

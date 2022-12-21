@@ -71,6 +71,20 @@ const questions = [
   //   category: '',
   //   image: '',
   // },
+  // {
+  //   questionText: '?',
+  //   answerOptions: ['', '', ''],
+  //   correctAnswer: ['', ''],
+  //   category: '',
+  //   image: '',
+  // },
+  {
+    questionText: 'Vilka svar är rätt?',
+    answerOptions: ['1', '2', '3', '4', '5'],
+    correctAnswer: ['4', '5'],
+    category: '',
+    image: '',
+  },
 ];
 
 export default questions;
