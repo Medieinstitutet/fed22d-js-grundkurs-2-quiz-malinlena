@@ -33,6 +33,8 @@ let playerName = '';
 let userAnswer = '';
 let timerNextQuestion = null;
 let timerGameOver = null;
+let questionCounter = 60;
+let interval = null;
 
 // Eventlyssnare
 
@@ -78,20 +80,35 @@ function startCountDown(milliseconds) {
   }, 1000);
 }
 
+function questionTimer() {
+  interval = setInterval(() => {
+    questionCounter--;
+    if (questionCounter < 0) {
+      nextQuestion();
+    }
+  }, 1000);
+}
+
 function checkAnswer() {
   const correctAnswer = questions[currentQuestion].correctAnswer;
-  console.log(userAnswer);
-  if (typeof correctAnswer === 'object') {
-    points +=
-      correctAnswer.every(item => userAnswer.includes(item)) && userAnswer.every(item => correctAnswer.includes(item))
-        ? 1
-        : -1;
-  } else {
-    if (userAnswer === correctAnswer) {
-      points++;
-    } else {
-      points--;
+
+  const isAnswerCorrect =
+    typeof correctAnswer === 'object'
+      ? correctAnswer.every(item => userAnswer.includes(item)) && userAnswer.every(item => correctAnswer.includes(item))
+      : userAnswer === correctAnswer;
+
+  if (isAnswerCorrect) {
+    points += 1;
+
+    if (questionCounter >= 50) {
+      points += 5;
+    } else if (questionCounter >= 40) {
+      points += 3;
+    } else if (questionCounter >= 30) {
+      points += 1;
     }
+  } else {
+    points -= 1;
   }
 }
 
@@ -124,7 +141,6 @@ function displayQuestion() {
 
   questionTextDiv.innerHTML = questions[currentQuestion].questionText;
   answerContainer.innerHTML = '';
-  console.log(correctAnswer);
 
   // Använder anonyma funktioner här pga finns endast här.
   if (typeof correctAnswer === 'object') {
@@ -144,9 +160,12 @@ function displayQuestion() {
   answerButtons.forEach(button => {
     button.addEventListener('change', setAnswer);
   });
+  questionCounter = 60;
+  questionTimer();
 }
 
 function nextQuestion() {
+  clearInterval(interval);
   clearTimeout(timerNextQuestion);
   timerNextQuestion = null;
   checkAnswer();
@@ -168,7 +187,6 @@ function gameOver() {
   pointsContainer.innerHTML = `Du fick ${points} poäng!`;
 
   const highscore = JSON.parse(localStorage.getItem('highscore')) ?? [];
-  console.log('highscore', highscore);
   const scores = highscore.map(record => record.score);
   const lowestScore = Math.min(...scores);
 
@@ -209,5 +227,3 @@ function highscore() {
     .join('');
   showElement(backButton);
 }
-
-// * skapa en funktion som gör det möjligt att flera svarsalternativ kan vara rätt
