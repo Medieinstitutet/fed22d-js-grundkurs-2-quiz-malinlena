@@ -6,8 +6,6 @@ import initialQuestions from './questionArray';
 
 /*
  * skapa en funktion som visar hur många frågor som är kvar
- * skapa en timer-funkton som ger olika poäng beroende på hur lång tid det tar att svara
- * skapa en knapp som visar alla svar med rätt och fel
  */
 
 // Variabler
@@ -25,6 +23,9 @@ const quizContainer = document.querySelector('.quiz-container');
 const highscoreContainer = document.querySelector('.highscore-container');
 const highscoreList = document.querySelector('.highscore-list');
 const backButton = document.querySelector('.back-button');
+const showResultButton = document.querySelector('.show-result-button');
+const resultPage = document.querySelector('.result-page');
+const userAnswers = {};
 
 let currentQuestion = 0;
 let points = 0;
@@ -43,6 +44,7 @@ restartGameButton.addEventListener('click', restartGame);
 nextQuestionButton.addEventListener('click', nextQuestion);
 highscoreButtons.forEach(button => button.addEventListener('click', highscore));
 backButton.addEventListener('click', showStartPage);
+showResultButton.addEventListener('click', showResult);
 
 // Funktioner
 
@@ -91,13 +93,9 @@ function questionTimer() {
 
 function checkAnswer() {
   const correctAnswer = questions[currentQuestion].correctAnswer;
+  const isCorrect = isAnswerCorrect(correctAnswer, userAnswer);
 
-  const isAnswerCorrect =
-    typeof correctAnswer === 'object'
-      ? correctAnswer.every(item => userAnswer.includes(item)) && userAnswer.every(item => correctAnswer.includes(item))
-      : userAnswer === correctAnswer;
-
-  if (isAnswerCorrect) {
+  if (isCorrect) {
     points += 1;
 
     if (questionCounter >= 50) {
@@ -169,6 +167,8 @@ function nextQuestion() {
   clearTimeout(timerNextQuestion);
   timerNextQuestion = null;
   checkAnswer();
+  userAnswers[currentQuestion] = userAnswer;
+  userAnswer = '';
   currentQuestion++;
   displayQuestion();
 }
@@ -202,6 +202,32 @@ function gameOver() {
 
   showElement(gameOverText);
   hideElement(questionContainer);
+}
+
+function isAnswerCorrect(userAnswer, correctAnswer) {
+  return typeof correctAnswer === 'object'
+    ? correctAnswer.every(item => userAnswer.includes(item)) && userAnswer.every(item => correctAnswer.includes(item))
+    : userAnswer === correctAnswer;
+}
+
+function showResult() {
+  hideEverything();
+  showElement(resultPage);
+  const resultContainer = document.querySelector('.result-container');
+  resultContainer.innerHTML = questions
+    .map((question, i) => {
+      const isCorrect = isAnswerCorrect(userAnswers[i], question.correctAnswer);
+
+      return `
+    <div class="result">
+      <div class="result-question">${question.questionText}</div>
+      <div class="result-answer">
+        <div class="result-answer-text">${userAnswers[i]}${isCorrect ? '✔️' : '❌'}</div>  
+      </div>
+    </div>
+  `;
+    })
+    .join('');
 }
 
 function hideEverything() {
