@@ -137,6 +137,19 @@ function displayQuestion() {
   const answers = shuffle(question.answerOptions);
   const correctAnswer = questions[currentQuestion].correctAnswer;
 
+  questionTextDiv.classList.remove('easy', 'medium', 'hard');
+  switch (question.category) {
+    case 'Lätt':
+      questionTextDiv.classList.add('easy');
+      break;
+    case 'Medel':
+      questionTextDiv.classList.add('medium');
+      break;
+    case 'Svår':
+      questionTextDiv.classList.add('hard');
+      break;
+  }
+
   questionTextDiv.innerHTML = questions[currentQuestion].questionText;
   answerContainer.innerHTML = '';
 
