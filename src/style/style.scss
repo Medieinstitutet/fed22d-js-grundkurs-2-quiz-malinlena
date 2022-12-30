@@ -27,6 +27,45 @@ main {
   margin-top: 20px;
 }
 
+button {
+  color: #fff;
+  background-color: gray;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease-in-out;
+  border-radius: 8px;
+  padding: 10px 20px;
+
+  &:hover {
+    background: #0f2a3f;
+  }
+}
+
+.highscore-button {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  bottom: 0;
+  margin: 20px;
+}
+
+.next-question-button {
+  position: fixed;
+  bottom: 10px;
+}
+
+.start-game-button {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.answer-button {
+  margin: 10px;
+  accent-color: maroon;
+  height: 25px;
+  width: 25px;
+}
+
 .player-details {
   display: flex;
   flex-direction: column;
@@ -34,6 +73,12 @@ main {
   justify-content: center;
   gap: 50px;
   margin-block: 20px;
+}
+
+.game-description {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
 }
 
 .question-text {
@@ -50,14 +95,6 @@ main {
   font-size: 1.5rem;
 }
 
-.answer-button {
-  margin: 10px;
-  accent-color: maroon;
-  cursor: pointer;
-  height: 25px;
-  width: 25px;
-}
-
 .quiz-container {
   display: flex;
   flex-direction: column;
@@ -65,22 +102,6 @@ main {
   justify-content: center;
   gap: 40px;
   margin-block: 20px;
-}
-
-.start-game-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  color: #fff;
-  background-color: gray;
-  font-size: 1.5rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    background: #0f2a3f;
-  }
 }
 
 .question-container {
@@ -102,21 +123,6 @@ main {
   right: 10px;
 }
 
-.next-question-button {
-  position: fixed;
-  bottom: 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    background: #0f2a3f;
-  }
-}
-
 .game-over {
   display: flex;
   flex-direction: column;
@@ -132,39 +138,8 @@ main {
   text-align: center;
 }
 
-.restart-game-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    background: #0f2a3f;
-  }
-}
-
 .hidden {
   display: none !important;
-}
-
-.highscore-button {
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  bottom: 0;
-  margin: 20px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    background: #0f2a3f;
-  }
 }
 
 .highscore-container {

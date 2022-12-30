@@ -4,13 +4,8 @@ import { shuffle, showElement, hideElement } from './utils';
 
 import initialQuestions from './questionArray';
 
-/*
- * skapa en funktion som visar hur många frågor som är kvar
- */
-
 // Variabler
 
-const gameDescription = document.getElementById('game-description');
 const questionTextDiv = document.querySelector('.question-text');
 const startGameButton = document.querySelector('.start-game-button');
 const restartGameButton = document.querySelector('.restart-game-button');
@@ -22,7 +17,7 @@ const playerDetails = document.querySelector('.player-details');
 const quizContainer = document.querySelector('.quiz-container');
 const highscoreContainer = document.querySelector('.highscore-container');
 const highscoreList = document.querySelector('.highscore-list');
-const backButton = document.querySelector('.back-button');
+const backButtons = document.querySelectorAll('.back-button');
 const showResultButton = document.querySelector('.show-result-button');
 const resultPage = document.querySelector('.result-page');
 const userAnswers = {};
@@ -36,6 +31,7 @@ let timerNextQuestion = null;
 let timerGameOver = null;
 let questionCounter = 60;
 let interval = null;
+let countDownInterval = null;
 
 // Eventlyssnare
 
@@ -43,7 +39,7 @@ startGameButton.addEventListener('click', startGame);
 restartGameButton.addEventListener('click', restartGame);
 nextQuestionButton.addEventListener('click', nextQuestion);
 highscoreButtons.forEach(button => button.addEventListener('click', highscore));
-backButton.addEventListener('click', showStartPage);
+backButtons.forEach(button => button.addEventListener('click', showStartPage));
 showResultButton.addEventListener('click', showResult);
 
 // Funktioner
@@ -51,16 +47,18 @@ showResultButton.addEventListener('click', showResult);
 function showStartPage() {
   hideEverything();
   showElement(quizContainer);
+  showElement(playerDetails);
+  currentQuestion = 0;
+  points = 0;
 }
 
 function startGame() {
+  hideEverything();
   const playerNameInput = document.getElementById('playerNameInput');
   const fiveMinutes = 5 * 60 * 1000;
   startCountDown(fiveMinutes);
   timerGameOver = setTimeout(gameOver, fiveMinutes);
   playerName = playerNameInput.value;
-  hideElement(gameDescription);
-  hideElement(playerDetails);
   showElement(questionContainer);
 
   displayQuestion();
@@ -71,11 +69,11 @@ function startCountDown(milliseconds) {
   const gameTimer = document.querySelector('.timer-gameover');
   gameTimer.innerHTML = Math.floor(counter / 60) + ':' + (counter % 60).toString().padStart(2, '0');
   counter--;
-  const interval = setInterval(() => {
+  countDownInterval = setInterval(() => {
     gameTimer.innerHTML = Math.floor(counter / 60) + ':' + (counter % 60).toString().padStart(2, '0');
     counter--;
     if (counter < 0) {
-      clearInterval(interval);
+      clearInterval(countDownInterval);
     } else if (counter < 30) {
       gameTimer.style.color = 'red';
     }
@@ -197,6 +195,7 @@ function restartGame() {
 function gameOver() {
   const pointsContainer = document.getElementById('pointsContainer');
   clearTimeout(timerGameOver);
+  clearInterval(countDownInterval);
   pointsContainer.innerHTML = `Du fick ${points} poäng!`;
 
   const highscore = JSON.parse(localStorage.getItem('highscore')) ?? [];
@@ -247,7 +246,8 @@ function hideEverything() {
   hideElement(gameOverText);
   hideElement(quizContainer);
   hideElement(highscoreContainer);
-  hideElement(backButton);
+  hideElement(playerDetails);
+  hideElement(resultPage);
 }
 
 function highscore() {
@@ -264,5 +264,4 @@ function highscore() {
   `
     )
     .join('');
-  showElement(backButton);
 }
