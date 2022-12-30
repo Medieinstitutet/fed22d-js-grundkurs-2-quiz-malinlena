@@ -1,22 +1,63 @@
 <!DOCTYPE html>
-<html lang="en"> <!-- TODO: glöm ej att byta språk här -->
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/ico" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projekt</title>
-  </head>
-  <body>
-    <main>
-      <div class="app" id="app"></div> <!-- TODO: går bra att radera -->
-      <!-- TODO: skriv din kod här, innan script-taggen -->
-    </main>
+<html lang="sv">
 
-    <!-- TODO
-    - Validera HTML (kopiera den renderade HTML-koden): https://validator.w3.org/#validate_by_input
-    - Kontrollera tillgänglighet: https://www.a11yproject.com/checklist/ & Chrome Lighthouse/Firefox Accessibility Tools
-    - Validera genererade CSS: https://jigsaw.w3.org/css-validator/#validate_by_input
-    -->
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Musikquiz" />
+  <link rel="icon" type="image/ico" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Musikquiz</title>
+</head>
+
+<body>
+  <main>
+
+    <h1>Musikquiz</h1>
+    <div class="quiz-container">
+      <div class="game-description">Välkommen till musikquizet! <br>
+        Du har 5 minuter på dig att svara på 10 frågor.
+        Är du riktigt snabb så kan du få extrapoäng!<br>
+        Lycka till!
+      </div>
+    </div>
+
+    <div class="player-details">
+      <label>Ditt namn:<br>
+        <input type="text" id="playerNameInput" value="">
+      </label>
+      <button class="start-game-button">Starta quizet</button>
+      <button class="highscore-button">Highscore</button>
+    </div>
+
+    <div class="question-container hidden">
+      <div class="question-text"></div>
+      <div class="answer-container"></div>
+      <div class="timer-gameover"></div>
+      <button class="next-question-button">Nästa fråga</button>
+    </div>
+
+    <div class="game-over hidden">
+      Spelet är slut!
+      <p id="pointsContainer"></p>
+      <button class="show-result-button">Visa ditt resultat</button>
+      <button class="restart-game-button">Spela igen</button>
+      <button class="highscore-button">Highscore</button>
+    </div>
+
+    <div class="result-page hidden">
+      <h2>Resultat:</h2>
+      <div class="result-container"></div>
+      <button class="back-button">Tillbaka</button>
+    </div>
+
+    <div class="highscore-container hidden">
+      <h2>Highscore</h2>
+      <div class="highscore-list"></div>
+      <button class="back-button">Tillbaka</button>
+    </div>
+
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>
